@@ -90,7 +90,6 @@ int findEmployeeById(Employee* list, int len,int id)
 
 
 	retorno = -1;
-
 	for (i = 0; i < len; i++)
 	{
 		if (list[i].id == id)
@@ -98,7 +97,7 @@ int findEmployeeById(Employee* list, int len,int id)
 			retorno = i;
 
 		}
-		break;
+
 	}
 
 
@@ -178,8 +177,7 @@ void showLista(Employee* list, int len)
 			printf("%s  ", list[i].name);
 			printf("%s  ", list[i].lastName);
 			printf("%f  ", list[i].salary);
-			printf("%d  ", list[i].sector);
-			printf("%d  \n", list[i].isEmpty);
+			printf("%d  \n", list[i].sector);
 		}
 
 	}
@@ -236,11 +234,140 @@ void salaryEmployeeProm(Employee* list, int len)
 	promSalaries = promSalary(list, len);
 	for (i = 0; i < len; i++)
 	{
-		if (list[i].salary > promSalaries)
+		if (list[i].salary > promSalaries && list[i].isEmpty == 1)
 		{
 			overSalaryEmployee++;
 		}
 	}
 
 	printf("La cantitad de empleado encima del promedio es %d \n", overSalaryEmployee);
+}
+
+void modifySalary(Employee* list, int len, int id)
+{
+	int i;
+	float nuevoSalario;
+	int retorno;
+	for (i = 0; i < len; i++)
+	{
+		if (list[i].id == id)
+		{
+			nuevoSalario = IngresarFlotante("Ingrese el nuevo salario \n");
+			list[i].salary = nuevoSalario;
+			retorno = 1;
+		}
+
+	}
+
+	if (retorno == 1)
+	{
+		printf("Se ha modificado correctamente el salario \n");
+	}
+	else
+	{
+		printf("No se ha podido modificar \n");
+	}
+}
+void modifySector(Employee* list, int len, int id)
+{
+	int i;
+	int nuevoSector;
+	int retorno;
+	for (i = 0; i < len; i++)
+	{
+		if (list[i].id == id)
+		{
+			nuevoSector = PedirEntero("Ingrese el nuevo sector \n");
+			list[i].sector = nuevoSector;
+			retorno = 1;
+		}
+
+	}
+
+	if (retorno == 1)
+	{
+		printf("Se ha modificado correctamente el sector \n");
+	}
+	else
+	{
+		printf("No se ha podido modificar el sector \n");
+	}
+}
+
+void modifyName(Employee* list, int len, int id)
+{
+	int i;
+	int retorno;
+	for (i = 0; i < len; i++)
+	{
+		if (list[i].id == id)
+		{
+			PedirString(list[i].name, "Ingrese el nuevo nombre \n", 51);
+			retorno = 1;
+		}
+
+	}
+
+	if (retorno == 1)
+	{
+		printf("Se ha modificado correctamente el nombre \n");
+	}
+	else
+	{
+		printf("No se ha podido modificar el nombre \n");
+	}
+}
+void modifySurname(Employee* list, int len, int id)
+{
+	int i;
+
+	int retorno;
+	for (i = 0; i < len; i++)
+	{
+		if (list[i].id == id)
+		{
+			PedirString(list[i].lastName, "Ingrese el nuevo apellido \n", 51);
+			retorno = 1;
+		}
+
+	}
+
+	if (retorno == 1)
+	{
+		printf("Se ha modificado correctamente el apellido \n");
+	}
+	else
+	{
+		printf("No se ha podido modificar el apellido \n");
+	}
+}
+
+void MostrarSubMenu(Employee list[], int len, int id)
+{
+	int respuesta;
+
+	respuesta = 0;
+	printf("1. Modificar salario \n");
+	printf("2. Modificar nombre \n");
+	printf("3. Modificar apellido \n");
+	printf("4. Modificar salario \n");
+
+
+		respuesta = PedirEntero("Ingrese una opcion \n");
+		switch (respuesta)
+			{
+			case 1:
+				modifySalary(list, len, id);
+				break;
+			case 2:
+				modifyName(list, len, id);
+				break;
+			case 3:
+				modifySurname(list, len, id);
+				break;
+			case 4:
+				modifySector(list, len, id);
+				break;
+			}
+
 }

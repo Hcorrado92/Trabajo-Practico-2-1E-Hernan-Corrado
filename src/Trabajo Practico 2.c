@@ -21,6 +21,7 @@ int iCliente = 0;
 int idElegido = 0;
 int id = 0;
 
+int idExists(Employee list[], int len);
 int GenerarId (int *idUltimo );
 int idChecker (Employee list[], int len, int id);
 Employee AltaCliente();
@@ -34,10 +35,11 @@ int main(void) {
 	char apellido[51];
 	char nombre[51];
 	int respuesta;
-	int idSelect;
+	//int idSelect;
 	int idChecker2;
 	int idSelect2;
 	int aux;
+	int idExist;
 	float aux2;
 	Employee ListaEmpleados[TAM] ={ {1,"Hernan","Corrado",10000,1,1} , {2, "Ern", "Corrado", 1000, 2, 1}, {3, "Gis", "Digilio", 20000, 1, 1}, {4, "Sti", "Digilio", 5000, 2, 1}, {5, "Glo", "Fontana", 10000, 3, 1} };
 
@@ -58,7 +60,7 @@ int main(void) {
 
 
 				printf("1. Alta\n");
-				printf("2. Imprimir Empleado por ID\n");
+				printf("2. Modificar Empleado\n");
 				printf("3. Borrar Empleado \n");
 				printf("4. Ordenar Alfabeticamente y por Sector \n");
 				printf("5. Imprimir lista \n");
@@ -82,19 +84,29 @@ int main(void) {
 					addEmployee(ListaEmpleados,TAM,id,nombre,apellido,salario,sector);
                     break;
                     case 2:
-                    idSelect = PedirEntero("Ingrese el ID del empleado \n");
-                    aux = findEmployeeById(ListaEmpleados, TAM, idSelect);
+                    	idExist = idExists(ListaEmpleados, TAM);
+                    	if (idExist != 0)
+                    	{
+                    idSelect2 = PedirEntero("Ingrese el ID del empleado \n");
+                    aux = findEmployeeById(ListaEmpleados, TAM, idSelect2);
                     if (aux != -1)
                     {
+                    	MostrarSubMenu(ListaEmpleados, TAM, idSelect2);
 
-                    	printf("NOMBRE\tAPELLIDO\tSALARIO\tSECTOR \n");
-                    	printf("%s\t%s\t%f\t%d", ListaEmpleados[aux].name, ListaEmpleados[aux].lastName, ListaEmpleados[aux].salary, ListaEmpleados[aux].sector);
+
                     }else
                     {
                     	printf ("EL ID NO EXISTE \n");
                     }
+                    	}else
+                    	{
+                    		printf("LISTA VACIA \n");
+                    	}
                     break;
                     case 3:
+                    	idExist = idExists(ListaEmpleados, TAM);
+                    	     if (idExist != 0)
+                    	  	{
                     	idSelect2 = PedirEntero("Ingrese el ID del empleado que desea eliminar \n");
                     	aux = removeEmployee(ListaEmpleados, TAM, idSelect2);
                     	if (aux != -1)
@@ -116,11 +128,24 @@ int main(void) {
                     		}
 
                     	}
+                    	  	}
+                    	     else
+                    	     {
+                    	    	 printf("LISTA VACIA \n");
+                    	     }
                     	break;
                     case 4:
+                    	idExist = idExists(ListaEmpleados, TAM);
+                    	     if (idExist != 0)
+                    	            	{
                     	sortAlpha(ListaEmpleados, TAM);
                     	sortSalary(ListaEmpleados, TAM);
-                    	printf("Se ha ordenado correctamente");
+                    	printf("Se ha ordenado correctamente \n");
+                    	            	}
+                    	     else
+                    	     {
+                    	    	 printf("LISTA VACIA \n");
+                    	     }
                     	break;
                     case 5:
                     	showLista(ListaEmpleados, TAM);
@@ -198,3 +223,19 @@ Employee AltaCliente()
 
 }
 
+int idExists(Employee list[], int len)
+{
+	int i;
+	int retorno;
+	retorno = 0;
+	for (i = 0; i < len; i++)
+	{
+		if (list[i].isEmpty == 1)
+		{
+			retorno = 1;
+		}
+		break;
+	}
+
+	return retorno;
+}

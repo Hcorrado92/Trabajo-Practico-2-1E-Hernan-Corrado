@@ -36,4 +36,9 @@ void sortSalary(Employee* list, int len);
 float plusSalary(Employee* list, int len);
 float promSalary(Employee* list, int len);
 void salaryEmployeeProm(Employee* list, int len);
+void MostrarSubMenu(Employee list[], int len, int id);
+void modifySurname(Employee* list, int len, int id);
+void modifyName(Employee* list, int len, int id);
+void modifySector(Employee* list, int len, int id);
+void modifySalary(Employee* list, int len, int id);
 #endif /* EMPLOYEE_H_ */
